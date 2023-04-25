@@ -1,4 +1,4 @@
-package main
+package linkedlist
 
 import (
 	"testing"
@@ -11,8 +11,8 @@ func assertLinkedListValueSequenceMatchesSlice(t *testing.T, expected []int, act
 			t.Errorf("not enough nodes in linkedlist, expected %d", len(expected))
 			return
 		}
-		if node.value != expectedValue {
-			t.Errorf("expected %d at index %d, but %d", expectedValue, i, node.value)
+		if node.Value != expectedValue {
+			t.Errorf("expected %d at index %d, but %d", expectedValue, i, node.Value)
 		}
 		node = node.next
 	}
@@ -22,27 +22,27 @@ func assertLinkedListValueSequenceMatchesSlice(t *testing.T, expected []int, act
 }
 
 func assertNotNilOrIncorrectValue(t *testing.T, expected int, actual *Node[int]) {
-	if actual == nil || actual.value != expected {
+	if actual == nil || actual.Value != expected {
 		t.Errorf("expected %d but got %v", expected, actual)
 	}
 }
 func TestAppendShouldAddValuesToTheEndOfTheLinkedList(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [5]int{1, 5, 3, 17, 66}
+	Values := [5]int{1, 5, 3, 17, 66}
 
-	for _, value := range values {
-		list.Append(value)
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
-	assertLinkedListValueSequenceMatchesSlice(t, values[:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[:], list)
 }
 
 func TestPrependShouldAddValuesToTheBeginningOfTheLinkedList(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [5]int{11, 2, 8, 77, 4}
+	Values := [5]int{11, 2, 8, 77, 4}
 
-	for _, value := range values {
-		list.Prepend(value)
+	for _, Value := range Values {
+		list.Prepend(Value)
 	}
 
 	assertLinkedListValueSequenceMatchesSlice(t, []int{4, 77, 8, 2, 11}, list)
@@ -51,10 +51,10 @@ func TestPrependShouldAddValuesToTheBeginningOfTheLinkedList(t *testing.T) {
 
 func TestDeleteShouldRemoveFirstMatchingValueFromTheLinkedList(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
+	Values := [6]int{11, 2, 5, 8, 77, 5}
 
-	for _, value := range values {
-		list.Append(value)
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 	list.Delete(5)
 	list.Delete(11)
@@ -67,35 +67,35 @@ func TestDeleteShouldRemoveFirstMatchingValueFromTheLinkedList(t *testing.T) {
 
 func TestDeleteFirstShouldRemoveFirstFromElementTheLinkedList(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
+	Values := [6]int{11, 2, 5, 8, 77, 5}
 
-	for _, value := range values {
-		list.Append(value)
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
 	list.DeleteHead()
-	assertLinkedListValueSequenceMatchesSlice(t, values[1:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[1:], list)
 	list.DeleteHead()
-	assertLinkedListValueSequenceMatchesSlice(t, values[2:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[2:], list)
 	list.DeleteHead()
-	assertLinkedListValueSequenceMatchesSlice(t, values[3:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[3:], list)
 	list.DeleteHead()
-	assertLinkedListValueSequenceMatchesSlice(t, values[4:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[4:], list)
 	list.DeleteHead()
-	assertLinkedListValueSequenceMatchesSlice(t, values[5:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[5:], list)
 	list.DeleteHead()
-	assertLinkedListValueSequenceMatchesSlice(t, values[6:], list)
+	assertLinkedListValueSequenceMatchesSlice(t, Values[6:], list)
 }
 
 func TestInsertAfterShouldInsertValueAfterSpecifiedNode(t *testing.T) {
 	list := LinkedList[int]{}
-	nodeA := &Node[int]{value: 11}
+	nodeA := &Node[int]{Value: 11}
 	list.head = nodeA
-	nodeB := &Node[int]{value: 2}
+	nodeB := &Node[int]{Value: 2}
 	nodeA.next = nodeB
-	nodeC := &Node[int]{value: 5}
+	nodeC := &Node[int]{Value: 5}
 	nodeB.next = nodeC
-	nodeD := &Node[int]{value: 6}
+	nodeD := &Node[int]{Value: 6}
 	nodeC.next = nodeD
 
 	list.InsertAfter(nodeB, 7)
@@ -107,10 +107,10 @@ func TestInsertAfterShouldInsertValueAfterSpecifiedNode(t *testing.T) {
 }
 func TestInsertAtShouldInsertAtValueSpecifiedIndex(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
+	Values := [6]int{11, 2, 5, 8, 77, 5}
 
-	for _, value := range values {
-		list.Append(value)
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
 	list.InsertAt(0, 81)
@@ -124,10 +124,10 @@ func TestInsertAtShouldInsertAtValueSpecifiedIndex(t *testing.T) {
 
 func TestReverseShouldReverseTheSequenceOfValues(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
+	Values := [6]int{11, 2, 5, 8, 77, 5}
 
-	for _, value := range values {
-		list.Append(value)
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
 	list.Reverse()
@@ -138,10 +138,10 @@ func TestReverseShouldReverseTheSequenceOfValues(t *testing.T) {
 
 func TestSearchShouldFindNodeOrNil(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
+	Values := [6]int{11, 2, 5, 8, 77, 5}
 
-	for _, value := range values {
-		list.Append(value)
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
 	validSearchValues := [3]int{11, 77, 5}
@@ -158,13 +158,13 @@ func TestSearchShouldFindNodeOrNil(t *testing.T) {
 
 func TestNthNodeShouldReturnNodeOrNil(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
-	for _, value := range values {
-		list.Append(value)
+	Values := [6]int{11, 2, 5, 8, 77, 5}
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
-	for i, value := range values {
-		assertNotNilOrIncorrectValue(t, value, list.NthNode(i))
+	for i, Value := range Values {
+		assertNotNilOrIncorrectValue(t, Value, list.NthNode(i))
 	}
 
 	node := list.NthNode(77)
@@ -178,28 +178,28 @@ func TestNthNodeShouldReturnNodeOrNil(t *testing.T) {
 }
 func TestNthValueShouldReturnValueOrError(t *testing.T) {
 	list := LinkedList[int]{}
-	values := [6]int{11, 2, 5, 8, 77, 5}
-	for _, value := range values {
-		list.Append(value)
+	Values := [6]int{11, 2, 5, 8, 77, 5}
+	for _, Value := range Values {
+		list.Append(Value)
 	}
 
-	for i, value := range values {
+	for i, Value := range Values {
 		result, err := list.NthValue(i)
 		if err != nil {
 			t.Errorf("unexpected error: %s", err)
 			continue
 		}
-		if result != value {
-			t.Errorf("result %d at indexs %d, but got %d", value, i, result)
+		if result != Value {
+			t.Errorf("result %d at indexs %d, but got %d", Value, i, result)
 		}
 	}
 
-	value, err := list.NthValue(77)
-	if value != 0 || err == nil {
-		t.Errorf("expected 0 and an error but got %d and '%s'", value, err)
+	Value, err := list.NthValue(77)
+	if Value != 0 || err == nil {
+		t.Errorf("expected 0 and an error but got %d and '%s'", Value, err)
 	}
-	value, err = list.NthValue(-1)
-	if value != 0 || err == nil {
-		t.Errorf("expected 0 and an error but got %d and '%s'", value, err)
+	Value, err = list.NthValue(-1)
+	if Value != 0 || err == nil {
+		t.Errorf("expected 0 and an error but got %d and '%s'", Value, err)
 	}
 }
