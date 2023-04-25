@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func assertLinkedListValueSequenceMatchesSlice(t *testing.T, expected []int, actual LinkedList) {
+func assertLinkedListValueSequenceMatchesSlice(t *testing.T, expected []int, actual LinkedList[int]) {
 	node := actual.head
 	for i, expectedValue := range expected {
 		if node == nil {
@@ -21,13 +21,13 @@ func assertLinkedListValueSequenceMatchesSlice(t *testing.T, expected []int, act
 	}
 }
 
-func assertNotNilOrIncorrectValue(t *testing.T, expected int, actual *Node) {
+func assertNotNilOrIncorrectValue(t *testing.T, expected int, actual *Node[int]) {
 	if actual == nil || actual.value != expected {
 		t.Errorf("expected %d but got %v", expected, actual)
 	}
 }
 func TestAppendShouldAddValuesToTheEndOfTheLinkedList(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [5]int{1, 5, 3, 17, 66}
 
 	for _, value := range values {
@@ -38,7 +38,7 @@ func TestAppendShouldAddValuesToTheEndOfTheLinkedList(t *testing.T) {
 }
 
 func TestPrependShouldAddValuesToTheBeginningOfTheLinkedList(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [5]int{11, 2, 8, 77, 4}
 
 	for _, value := range values {
@@ -50,7 +50,7 @@ func TestPrependShouldAddValuesToTheBeginningOfTheLinkedList(t *testing.T) {
 }
 
 func TestDeleteShouldRemoveFirstMatchingValueFromTheLinkedList(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 
 	for _, value := range values {
@@ -66,7 +66,7 @@ func TestDeleteShouldRemoveFirstMatchingValueFromTheLinkedList(t *testing.T) {
 }
 
 func TestDeleteFirstShouldRemoveFirstFromElementTheLinkedList(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 
 	for _, value := range values {
@@ -88,14 +88,14 @@ func TestDeleteFirstShouldRemoveFirstFromElementTheLinkedList(t *testing.T) {
 }
 
 func TestInsertAfterShouldInsertValueAfterSpecifiedNode(t *testing.T) {
-	list := LinkedList{}
-	nodeA := &Node{value: 11}
+	list := LinkedList[int]{}
+	nodeA := &Node[int]{value: 11}
 	list.head = nodeA
-	nodeB := &Node{value: 2}
+	nodeB := &Node[int]{value: 2}
 	nodeA.next = nodeB
-	nodeC := &Node{value: 5}
+	nodeC := &Node[int]{value: 5}
 	nodeB.next = nodeC
-	nodeD := &Node{value: 6}
+	nodeD := &Node[int]{value: 6}
 	nodeC.next = nodeD
 
 	list.InsertAfter(nodeB, 7)
@@ -106,7 +106,7 @@ func TestInsertAfterShouldInsertValueAfterSpecifiedNode(t *testing.T) {
 
 }
 func TestInsertAtShouldInsertAtValueSpecifiedIndex(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 
 	for _, value := range values {
@@ -123,7 +123,7 @@ func TestInsertAtShouldInsertAtValueSpecifiedIndex(t *testing.T) {
 }
 
 func TestReverseShouldReverseTheSequenceOfValues(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 
 	for _, value := range values {
@@ -137,7 +137,7 @@ func TestReverseShouldReverseTheSequenceOfValues(t *testing.T) {
 }
 
 func TestSearchShouldFindNodeOrNil(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 
 	for _, value := range values {
@@ -157,7 +157,7 @@ func TestSearchShouldFindNodeOrNil(t *testing.T) {
 }
 
 func TestNthNodeShouldReturnNodeOrNil(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 	for _, value := range values {
 		list.Append(value)
@@ -177,7 +177,7 @@ func TestNthNodeShouldReturnNodeOrNil(t *testing.T) {
 	}
 }
 func TestNthValueShouldReturnValueOrError(t *testing.T) {
-	list := LinkedList{}
+	list := LinkedList[int]{}
 	values := [6]int{11, 2, 5, 8, 77, 5}
 	for _, value := range values {
 		list.Append(value)
