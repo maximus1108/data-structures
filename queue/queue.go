@@ -26,7 +26,12 @@ func (q *Queue[T]) Dequeue() T {
 }
 
 func (q *Queue[T]) Peek() T {
-	return q.elements.Head().Value
+	head := q.elements.Head()
+	if head == nil {
+		var zero T
+		return zero
+	}
+	return head.Value
 }
 
 func (q *Queue[T]) IsEmpty() bool {
