@@ -1,26 +1,23 @@
 package queue
 
 import (
-	"fmt"
 	"testing"
 )
 
 func TestQueue(t *testing.T) {
-	q := New[string]()
+	q := New[int]()
 
 	for i := 0; i < 10; i++ {
-		fmt.Println("Enqueueing", i)
-		q.Enqueue(fmt.Sprintf("value %d", i))
+		q.Enqueue(i)
+
 	}
 
 	for i := 0; i < 10; i++ {
-		expected := fmt.Sprintf("value %d", i)
-		fmt.Println("expecting", i)
-		actual := q.Dequeue()
-		fmt.Println("got", actual)
-
-		if actual != expected {
-			t.Errorf("expected '%s', got '%s'", expected, actual)
+		if q.Peek() != i {
+			t.Errorf("expected %d, got %d", i, q.Peek())
+		}
+		if q.Dequeue() != i {
+			t.Errorf("expected %d, got %d", i, q.Dequeue())
 		}
 	}
 
