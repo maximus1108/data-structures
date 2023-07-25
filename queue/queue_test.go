@@ -2,27 +2,30 @@ package queue
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestQueue(t *testing.T) {
-	q := New[int]()
 
-	for i := 0; i < 10; i++ {
-		q.Enqueue(i)
+	t.Run("should have the expected elements im the queue when enqueuing and dequeuing", func(t *testing.T) {
+		q := New[int]()
 
-	}
-
-	for i := 0; i < 10; i++ {
-		if q.Peek() != i {
-			t.Errorf("expected %d, got %d", i, q.Peek())
+		for i := 0; i < 10; i++ {
+			q.Enqueue(i)
 		}
-		if q.Dequeue() != i {
-			t.Errorf("expected %d, got %d", i, q.Dequeue())
+
+		for i := 0; i < 10; i++ {
+			assert.Equal(t, i, q.Peek())
+			v, ok := q.Dequeue()
+			assert.True(t, ok)
+
+			assert.Equal(t, i, v)
 		}
-	}
 
-	if !q.IsEmpty() {
-		t.Error("expected queue to be empty")
-	}
-
+		assert.True(t, q.IsEmpty())
+		v, ok := q.Dequeue()
+		assert.False(t, ok)
+		assert.Equal(t, 0, v)
+	})
 }

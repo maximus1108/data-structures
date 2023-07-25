@@ -1,28 +1,30 @@
 package queue
 
-import "github.com/maximus1108/data-structures/linkedlist"
+import (
+	"github.com/maximus1108/data-structures/doublylinkedlist"
+)
 
 func New[T comparable]() *Queue[T] {
 	return &Queue[T]{
-		elements: &linkedlist.LinkedList[T]{}, // TODO: use doubly linked list to optimize Enqueue
+		elements: doublylinkedlist.New[T](),
 	}
 }
 
 type Queue[T comparable] struct {
-	elements *linkedlist.LinkedList[T]
+	elements *doublylinkedlist.DoublyLinkedList[T]
 }
 
 func (q *Queue[T]) Enqueue(value T) {
 	q.elements.Append(value)
 }
 
-func (q *Queue[T]) Dequeue() T {
+func (q *Queue[T]) Dequeue() (T, bool) {
 	head := q.elements.DeleteHead()
 	if head == nil {
 		var zero T
-		return zero
+		return zero, false
 	}
-	return head.Value
+	return head.Value, true
 }
 
 func (q *Queue[T]) Peek() T {

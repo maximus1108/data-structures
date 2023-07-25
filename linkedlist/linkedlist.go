@@ -38,7 +38,7 @@ func (l *LinkedList[T]) DeleteFirst(value T) *Node[T] {
 
 	nodeBefore := l.head
 	for nodeBefore != nil && nodeBefore.next != nil {
-		if nodeBefore.next.Value != value {
+		if nodeBefore.next.Value == value {
 			deleted := nodeBefore.next
 			nodeBefore.next = nodeBefore.next.next
 			return deleted
