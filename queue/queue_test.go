@@ -8,7 +8,7 @@ import (
 
 func TestQueue(t *testing.T) {
 
-	t.Run("should have the expected elements im the queue when enqueuing and dequeuing", func(t *testing.T) {
+	t.Run("should have the expected elements in the queue when enqueuing and dequeuing", func(t *testing.T) {
 		q := New[int]()
 
 		for i := 0; i < 10; i++ {
